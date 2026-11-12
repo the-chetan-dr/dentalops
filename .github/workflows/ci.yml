@@ -1,3 +1,4 @@
+
 name: Dental Clinic CI
 
 on:
@@ -17,18 +18,20 @@ concurrency:
 jobs:
   test:
     name: Django checks and tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+
     env:
-      SECRET_KEY: ci-only-secret-key-not-used-in-production-123456789
+      SECRET_KEY: ci-only-secret-key-for-github-actions-testing-2026-unique-value-123456789
       DEBUG: "False"
       ALLOWED_HOSTS: localhost,127.0.0.1,testserver
       DJANGO_SETTINGS_MODULE: dental_clinic.settings
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
@@ -40,10 +43,12 @@ jobs:
           pip install ruff
 
       - name: Compile Python files
-        run: python -m compileall -q accounts aiassistant clinic dental_clinic manage_panel pages
+        run: |
+          python -m compileall -q accounts aiassistant clinic dental_clinic manage_panel pages
 
-      - name: Lint changed project code
-        run: ruff check accounts aiassistant clinic dental_clinic manage_panel pages --select E9,F63,F7,F82 --output-format=github
+      - name: Lint project code
+        run: |
+          ruff check accounts aiassistant clinic dental_clinic manage_panel pages --select E9,F63,F7,F82 --output-format=github
 
       - name: Django system checks
         run: python manage.py check
@@ -62,15 +67,17 @@ jobs:
 
   security:
     name: Dependency and source security scans
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+
     permissions:
       contents: read
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -84,10 +91,11 @@ jobs:
         run: pip-audit -r requirements.txt
 
       - name: Scan Python code with Bandit
-        run: bandit -r accounts aiassistant clinic dental_clinic manage_panel pages -ll -ii
+        run: |
+          bandit -r accounts aiassistant clinic dental_clinic manage_panel pages -ll -ii
 
-      - name: Scan repository for secrets, vulnerabilities and misconfiguration
-        uses: aquasecurity/trivy-action@0.28.0
+      - name: Scan repository with Trivy
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: fs
           scan-ref: .
