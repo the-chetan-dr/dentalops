@@ -1,0 +1,50 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.Python
+
+# ---- Virtual environment ----
+venv/
+.venv/
+env/
+ENV/
+
+# ---- Django ----
+db.sqlite3
+db.sqlite3-journal
+*.log
+local_settings.py
+/staticfiles/
+/media/
+
+# ---- Environment / secrets ----
+.env
+.env.*
+*.pem
+
+# ---- Report generation tooling (not part of the shipped project) ----
+_report_tools/
+
+# ---- OS / editor ----
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Test and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build artifacts
+build/
+dist/
+
+# Python environments
+pip-wheel-metadata/
+
+# Keep example environment template
+!.env.example

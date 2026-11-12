@@ -1,0 +1,29 @@
+databases:
+  - name: dental-clinic-db
+    databaseName: dental_clinic
+    user: dental_clinic_user
+    plan: free
+    region: singapore
+
+services:
+  - type: web
+    name: dental-clinic-app
+    runtime: python
+    plan: free
+    region: singapore
+    branch: main
+    autoDeployTrigger: checksPass
+    buildCommand: ./build.sh
+    startCommand: gunicorn dental_clinic.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --threads 4 --timeout 120
+    healthCheckPath: /healthz/
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: dental-clinic-db
+          property: connectionString
