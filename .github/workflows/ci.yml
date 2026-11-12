@@ -1,4 +1,3 @@
-
 name: Dental Clinic CI
 
 on:
@@ -56,11 +55,11 @@ jobs:
       - name: Check for missing migrations
         run: python manage.py makemigrations --check --dry-run
 
-      - name: Run automated tests
-        run: python manage.py test --verbosity 2
-
       - name: Collect static files
         run: python manage.py collectstatic --noinput
+
+      - name: Run automated tests
+        run: python manage.py test --verbosity 2
 
       - name: Django production security checks
         run: python manage.py check --deploy
