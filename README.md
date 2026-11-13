@@ -1,6 +1,6 @@
 # Dental Clinic Management System
 
-![Dental Clinic Management System](docs/thumbnail.png)
+
 
 A comprehensive, production-quality **Dental Clinic Management System** built with **Django**. It digitises the complete workflow of a modern dental practice — appointments, an interactive 32‑tooth chart, treatments, digital prescriptions, invoicing & payments, inventory, reviews and rich analytics — across four uniquely themed, **role-based dashboards** (Administrator, Dentist, Receptionist, Patient).
 
@@ -199,10 +199,4 @@ A complete **50+ page project report** (Word and PDF) with all diagrams is avail
 
 ---
 
-## License
 
-This project is released under the **MIT License**. It is provided for educational and demonstration purposes. The rule-based AI features offer informational guidance only and are **not** a substitute for professional medical advice.
-
----
-
-Made with care for **lazycoder** — happy coding! 🦷
